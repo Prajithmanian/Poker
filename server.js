@@ -6,13 +6,16 @@ var server = restify.createServer();
 server.use(restify.queryParser());
 
 server.get('/exec', function(req, res, next){
-	var args = JSON.parse( req.params.q );
+	//var args = JSON.parse( req.params.q );
+	var str = req.params.q;
+	args = str.split(" ");
 	console.log(args);
 	// Insert your code here to execute command and send response instead of hello  world
 	execFile('java', ['Poker'].concat(args), (error, stdout, stderr) => {
 		if (error) {
 			throw error;
 		}
+			//console.log(stdout);
 			res.send(stdout);
 		});
 
